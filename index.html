@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#14241d" />
+    <meta name="description" content="Find real cafes across India with Google Places addresses, ratings, hours, and place photos." />
+    <title>roam — Cafe Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="roam home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+          <span class="brand-word">roam</span>
+        </a>
+        <div class="topbar-context"><span class="live-dot"></span><span id="source-label">GOOGLE PLACES</span><span class="context-separator">/</span><span id="header-location">BENGALURU, INDIA</span></div>
+        <div class="topbar-actions">
+          <button class="text-button" id="saved-button" type="button"><span class="heart-icon">♡</span> Saved <span class="saved-count" id="saved-count">0</span></button>
+          <button class="avatar-button" type="button" aria-label="Profile"><span>JD</span></button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="discovery-rail">
+          <div class="rail-kicker">CAFE FINDER <span>07</span></div>
+          <h1>Find your<br /><em>next regular.</em></h1>
+          <p class="rail-intro">A better cup is usually closer than you think. Search a place, or let the map do the wandering.</p>
+
+          <form class="search-form" id="search-form">
+            <label for="search-input">Where are you roaming?</label>
+            <div class="search-box">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input id="search-input" type="search" placeholder="Search an Indian city or neighborhood" autocomplete="off" />
+              <button type="submit" aria-label="Search"><span>↗</span></button>
+            </div>
+            <button class="location-button" id="location-button" type="button"><span class="location-pin">⌖</span> Use my current location</button>
+          </form>
+
+          <section class="filter-section" aria-label="Cafe filters">
+            <div class="section-label"><span>REFINE THE VIBE</span><button class="clear-button" id="clear-filters" type="button">Clear all</button></div>
+            <div class="filter-row">
+              <button class="filter-chip active" data-filter="open" type="button"><span class="chip-indicator"></span> Open now</button>
+              <button class="filter-chip" data-filter="work" type="button"><span class="chip-icon">⌁</span> Work-friendly</button>
+            </div>
+            <div class="filter-row">
+              <button class="filter-chip" data-filter="quiet" type="button"><span class="chip-icon">◌</span> Quiet</button>
+              <button class="filter-chip" data-filter="outdoor" type="button"><span class="chip-icon">♧</span> Outdoor</button>
+            </div>
+            <div class="filter-control">
+              <div class="control-top"><span>Distance</span><strong id="distance-value">5 km</strong></div>
+              <input id="distance-range" type="range" min="1" max="8" value="5" step="1" />
+              <div class="range-labels"><span>1 km</span><span>8 km</span></div>
+            </div>
+            <div class="filter-control rating-control">
+              <div class="control-top"><span>Minimum rating</span><strong id="rating-value">Any</strong></div>
+              <div class="rating-options" role="group" aria-label="Minimum rating">
+                <button class="rating-option active" data-rating="0" type="button">Any</button>
+                <button class="rating-option" data-rating="4" type="button">4.0+</button>
+                <button class="rating-option" data-rating="4.5" type="button">4.5+</button>
+              </div>
+            </div>
+            <div class="filter-control price-control">
+              <div class="control-top"><span>Price level</span><strong id="price-value">Any</strong></div>
+              <div class="rating-options" role="group" aria-label="Price level">
+                <button class="price-option rating-option active" data-price="any" type="button">Any</button>
+                <button class="price-option rating-option" data-price="₹" type="button">₹</button>
+                <button class="price-option rating-option" data-price="₹₹" type="button">₹₹</button>
+                <button class="price-option rating-option" data-price="₹₹₹" type="button">₹₹₹</button>
+              </div>
+            </div>
+          </section>
+
+          <footer class="rail-footer"><span class="open-state"><span class="live-dot"></span> DATA REFRESHED <strong id="refresh-time">JUST NOW</strong></span><span class="attribution">Listings by Google Places · Map by <a href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer">OpenStreetMap</a></span></footer>
+        </aside>
+
+        <section class="results-column">
+          <div class="results-header">
+            <div><p class="eyebrow">NEARBY CAFES <span class="count-pill" id="result-count">0</span></p><h2 id="results-title">A good place to begin</h2></div>
+            <div class="sort-wrap"><label for="sort-select">Sort by</label><select id="sort-select"><option value="recommended">Recommended</option><option value="distance">Closest first</option><option value="rating">Highest rated</option></select></div>
+          </div>
+          <div class="status-banner" id="status-banner" role="status"><span class="status-spinner"></span><span>Finding cafes with live map data…</span></div>
+          <div class="results-list" id="results-list"></div>
+          <div class="empty-state" id="empty-state" hidden><div class="empty-icon">⌕</div><h3>No cafes match that vibe.</h3><p>Try widening the distance or clearing one filter. The map is still listening.</p><button class="outline-button" id="empty-reset" type="button">Reset filters</button></div>
+        </section>
+
+        <section class="map-stage" aria-label="Cafe map">
+          <div id="map"></div>
+          <div class="map-overlay map-overlay-top"><span class="map-note"><span class="live-dot"></span> LIVE MAP</span><button id="recenter-button" class="map-icon-button" type="button" aria-label="Recenter map">◎</button></div>
+          <div class="map-overlay map-overlay-bottom"><div class="map-legend"><span class="legend-pin"></span> Cafe</div><div class="map-credit">© OpenStreetMap contributors</div></div>
+          <div class="map-loader" id="map-loader"><span></span><span></span><span></span></div>
+        </section>
+      </main>
+
+      <div class="detail-drawer" id="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="detail-title" aria-hidden="true">
+        <button class="drawer-close" id="drawer-close" type="button" aria-label="Close cafe details">×</button>
+        <div id="detail-content"></div>
+      </div>
+      <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

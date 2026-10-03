@@ -1,0 +1,12 @@
+{
+  "name": "cafe-finder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "build": "node --check app.js && node --check server.mjs && node -e \"console.log('Vercel build: source files are deployment-ready')\"",
+    "vercel-build": "npm run build"
+  }
+}

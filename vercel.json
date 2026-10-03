@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/manus-routes.json", "destination": "/public/manus-routes.json" },
+    { "source": "/assets/:path*", "destination": "/public/assets/:path*" }
+  ]
+}
