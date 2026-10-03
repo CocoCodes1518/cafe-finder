@@ -27,7 +27,7 @@ An India-only cafe discovery app that finds real nearby cafes using Google Place
 ├── client.js                 # Client state, search, filters, map, cards, and detail modal
 ├── index.html                # App shell and accessible modal markup
 ├── styles.css                # Responsive visual system and modal styling
-├── server.mjs                # Node server and Google Places/Photo proxy
+├── lib/server.mjs                # Node server and Google Places/Photo proxy
 ├── public/manus-routes.json  # Website route manifest
 ├── public/assets/            # Supporting brand assets
 ├── plan.md                   # Implementation and design plan

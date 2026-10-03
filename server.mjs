@@ -197,6 +197,8 @@ export async function requestHandler(req, res) {
   }
 }
 
+export default requestHandler;
+
 if (!process.env.VERCEL) {
   const server = createServer(requestHandler);
   server.listen(port, '0.0.0.0', () => {
