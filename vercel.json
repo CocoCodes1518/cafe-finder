@@ -4,6 +4,7 @@
     { "src": "/api/(.*)", "dest": "/api/[...path].mjs" },
     { "src": "/manus-routes.json", "dest": "/public/manus-routes.json" },
     { "src": "/assets/(.*)", "dest": "/public/assets/$1" },
-    { "src": "/", "dest": "/index.html" }
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
