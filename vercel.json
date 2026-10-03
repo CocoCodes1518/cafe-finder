@@ -1,7 +1,9 @@
 {
-  "version": 2,
-  "rewrites": [
-    { "source": "/manus-routes.json", "destination": "/public/manus-routes.json" },
-    { "source": "/assets/:path*", "destination": "/public/assets/:path*" }
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/[...path].mjs" },
+    { "src": "/manus-routes.json", "dest": "/public/manus-routes.json" },
+    { "src": "/assets/(.*)", "dest": "/public/assets/$1" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }

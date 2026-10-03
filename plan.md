@@ -28,7 +28,7 @@ A responsive India-only cafe finder that surfaces real nearby cafes using Google
 ## Project structure
 - `index.html` — semantic shell, Leaflet and font CDN imports.
 - `styles.css` — responsive editorial layout, states, cards, map chrome, and motion.
-- `app.js` — state, India-only geocoding, Google Places response handling, ranking/filtering, map rendering, and interactions.
+- `client.js` — state, India-only geocoding, Google Places response handling, ranking/filtering, map rendering, and interactions.
 - `server.mjs` — Node server, Google Places proxy, and Google Place Photo proxy.
 - `public/manus-routes.json` — route manifest for the single-page experience.
 - `public/assets/` — legacy brand assets retained for layout polish; live cafe cards never use them as substitute photos.
